@@ -67,17 +67,17 @@ function getOffenseCount(userId) {
 
 function incrementOffense(userId) {
   const current = getOffenseCount(userId);
-  const next = Math.min(current + 1, 4); // Cap at 4
+  const next = current + 1; // No cap — keeps counting forever
   offenseTracker.set(userId, next);
   return next;
 }
 
 function getTimeoutDuration(offenseCount) {
-  return TIMEOUT_SCALE[offenseCount] || TIMEOUT_SCALE[4];
+  return TIMEOUT_SCALE[Math.min(offenseCount, 4)]; // Max timeout is 4 hours (offense 3+)
 }
 
 function getTimeoutLabel(offenseCount) {
-  return TIMEOUT_LABELS[offenseCount] || TIMEOUT_LABELS[4];
+  return TIMEOUT_LABELS[Math.min(offenseCount, 4)];
 }
 
 function checkMessage(content) {
