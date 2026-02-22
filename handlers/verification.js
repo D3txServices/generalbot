@@ -11,53 +11,31 @@ const {
 // ─────────────────────────────────────────────────────────────
 async function postVerifyPanel(channel) {
   const embed = new EmbedBuilder()
-    .setTitle('🔐 D3TX Services — Verification & Terms of Service')
+    .setTitle('🎮 Welcome to D3TX Services!')
     .setColor(0xf5a623)
     .setDescription(
       [
-        '> **Welcome to D3TX Services!** Before gaining access to the server, you must read and agree to our full Terms of Service below.',
+        '> The **#1 destination** for premium Cronus Zen anti-recoil scripts and configs.',
         '',
         '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        '⛔ **NO REFUND POLICY — All Sales Are Final**',
-        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        'Once a purchase is made, the script is delivered digitally. **No refunds — no matter the reason.**',
-        '→ Deleting the script does **not** qualify for a refund',
-        '→ Resetting your PC does **not** qualify for a refund',
-        '→ No longer wanting the script does **not** qualify',
-        '→ Script files are always re-downloadable from your Patreon account',
+        '',
+        '**To gain full access to the server, click the button below.**',
+        '',
+        'By verifying you confirm that you agree to our:',
+        '🌐 **Terms of Service** → [d3tx.services/terms](https://d3tx.services)',
+        '📋 **Patreon Rules** → [patreon.com/d3tx](https://patreon.com/d3tx)',
         '',
         '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        '🚫 **ZERO TOLERANCE — No Chargebacks or Disputes**',
-        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        'Attempting a chargeback results in **permanent ban** from all D3TX platforms.',
-        '→ Always contact support first via Discord or **support@d3tx.services**',
-        '→ Chargebacks = immediate permanent blacklist — no exceptions',
         '',
-        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        '🔒 **PERSONAL USE ONLY — No Sharing or Reselling**',
-        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        'All scripts and memberships are strictly for the **buyer only.**',
-        '→ Sharing with anyone — friends, family, online — is **prohibited**',
-        '→ Leaking or posting scripts publicly = **permanent ban**',
-        '→ Reselling D3TX scripts under any name **will be pursued legally**',
+        '📦 **What we offer:**',
+        '→ Anti-recoil scripts for Warzone, Apex, Fortnite, R6, BF6 & PUBG',
+        '→ Regular updates and new weapon support',
+        '→ Dedicated support via tickets',
         '',
-        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        '📋 **SCOPE — Applies to All Platforms**',
-        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        'These terms apply to: **Patreon, Discord, d3tx.services** and all affiliated platforms.',
-        '',
-        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        '⚠️ **YOUR RESPONSIBILITY**',
-        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        '"I didn\'t read the rules" is **not accepted.** Rules are pinned in Discord and available at **d3tx.services** at all times.',
-        '',
-        '🔄 D3TX Services reserves the right to update these terms at any time. Continued use = acceptance.',
-        '',
-        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        '*By clicking **Verify** below, you confirm you have fully read, understood, and agree to all D3TX Terms of Service above.*',
+        '> 💬 Need help? Open a ticket and our team will assist you.',
       ].join('\n')
     )
-    .setFooter({ text: 'D3TX Services • d3tx.services • Powered by D3TX Security' })
+    .setFooter({ text: 'D3TX Services • d3tx.services' })
     .setTimestamp();
 
   const button = new ButtonBuilder()
