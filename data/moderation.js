@@ -86,13 +86,16 @@ function getTimeoutLabel(offenseCount) {
 const REFUND_KEYWORDS = [
   'refund', 'refunded', 'refunding', 'refunds',
   'money back', 'my money back', 'get my money',
+  'give me back', 'give back my', 'back my money',
+  'back the money', 'return my money', 'return the money',
   'chargeback', 'charge back',
   'dispute', 'disputing', 'open a dispute',
   'paypal claim', 'paypal dispute',
   'return my payment', 'return payment',
   'want my money', 'give me my money',
   'i want my money', 'send my money',
-  'pay me back', 'pay me',
+  'pay me back', 'need my money',
+  'where is my money', 'where my money',
 ];
 
 function checkRefund(content) {
