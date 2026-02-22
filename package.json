@@ -1,0 +1,18 @@
+{
+  "name": "d3tx-security-bot",
+  "version": "1.0.0",
+  "description": "D3TX Verification + Auto-Mod Security Bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
+    "openai": "^4.52.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
