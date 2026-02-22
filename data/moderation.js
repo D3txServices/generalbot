@@ -45,16 +45,16 @@ const BAD_PHRASES = [
 // ─────────────────────────────────────────────────────────────
 const TIMEOUT_SCALE = {
   1: 10 * 60 * 1000,           // 1st offense: 10 minutes
-  2: 60 * 60 * 1000,           // 2nd offense: 1 hour
-  3: 24 * 60 * 60 * 1000,      // 3rd offense: 24 hours
-  4: 24 * 60 * 60 * 1000,      // 4th+ offense: 24 hours (no ban)
+  2: 30 * 60 * 1000,           // 2nd offense: 30 minutes
+  3: 4 * 60 * 60 * 1000,       // 3rd offense: 4 hours
+  4: 4 * 60 * 60 * 1000,       // 4th+ offense: 4 hours (always, no ban)
 };
 
 const TIMEOUT_LABELS = {
   1: '10 minutes',
-  2: '1 hour',
-  3: '24 hours',
-  4: '24 hours',
+  2: '30 minutes',
+  3: '4 hours',
+  4: '4 hours',
 };
 
 // In-memory offense tracker: userId -> offense count
