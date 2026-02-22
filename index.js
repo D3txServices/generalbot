@@ -86,14 +86,22 @@ client.on('messageCreate', async (message) => {
       let success = 0;
       let failed = 0;
 
-      for (const [, member] of unverified) {
-        try {
-          await member.roles.add(verifiedRoleId);
-          success++;
-        } catch (e) {
-          failed++;
-        }
-        await new Promise(r => setTimeout(r, 300));
+      const members = [...unverified.values()];
+      const BATCH_SIZE = 10;
+
+      for (let i = 0; i < members.length; i += BATCH_SIZE) {
+        const batch = members.slice(i, i + BATCH_SIZE);
+        await Promise.all(batch.map(async (member) => {
+          try {
+            await member.roles.add(verifiedRoleId);
+            success++;
+          } catch (e) {
+            failed++;
+          }
+        }));
+        // Update progress every batch
+        await statusMsg.edit(`⏳ Verifying... **${Math.min(i + BATCH_SIZE, members.length)}/${members.length}**`);
+        await new Promise(r => setTimeout(r, 500));
       }
 
       await statusMsg.edit(`✅ Done! **${success}** members verified.${failed > 0 ? ` ❌ Failed: **${failed}**` : ''}`);
