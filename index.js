@@ -29,36 +29,42 @@ client.once('ready', () => {
 });
 
 // ─────────────────────────────────────────────────────────────
-// MESSAGE HANDLER — Auto Mod
+// MESSAGE HANDLER
 // ─────────────────────────────────────────────────────────────
 client.on('messageCreate', async (message) => {
   // Auto mod
   await handleMessage(message, client);
 
-  // Admin commands
+  // Admin commands only
   if (message.author.bot) return;
   if (!message.member?.permissions.has('Administrator')) return;
 
-  // Post verify panel
+  // !setup-verify — post verification panel
   if (message.content === '!setup-verify') {
     await postVerifyPanel(message.channel);
     await message.delete().catch(() => {});
     console.log(`📋 Verify panel posted in #${message.channel.name} by ${message.author.tag}`);
   }
 
-  // Show offense count for a user (mention them)
-  // Usage: !offenses @user
+  // !offenses @user — check offense count
   if (message.content.startsWith('!offenses')) {
     const { getOffenseCount } = require('./data/moderation');
     const mentioned = message.mentions.users.first();
-    if (!mentioned) {
-      return message.reply('Usage: `!offenses @user`');
-    }
+    if (!mentioned) return message.reply('Usage: `!offenses @user`');
     const count = getOffenseCount(mentioned.id);
     await message.reply(`⚠️ **${mentioned.tag}** has **${count}** offense(s) on record.`);
   }
 
-  // Verify all unverified members
+  // !resetoffenses @user — reset offense count
+  if (message.content.startsWith('!resetoffenses')) {
+    const { offenseTracker } = require('./data/moderation');
+    const mentioned = message.mentions.users.first();
+    if (!mentioned) return message.reply('Usage: `!resetoffenses @user`');
+    offenseTracker.delete(mentioned.id);
+    await message.reply(`✅ Offenses for **${mentioned.tag}** have been reset.`);
+  }
+
+  // !verifyall — give verified role to all members who don't have it
   if (message.content === '!verifyall') {
     const verifiedRoleId = process.env.VERIFIED_ROLE_ID;
     if (!verifiedRoleId) return message.reply('❌ VERIFIED_ROLE_ID not set in .env');
@@ -66,7 +72,6 @@ client.on('messageCreate', async (message) => {
     const statusMsg = await message.reply('⏳ Fetching all members...');
 
     try {
-      // Fetch all members
       await message.guild.members.fetch();
       const unverified = message.guild.members.cache.filter(
         m => !m.user.bot && !m.roles.cache.has(verifiedRoleId)
@@ -88,23 +93,14 @@ client.on('messageCreate', async (message) => {
         } catch (e) {
           failed++;
         }
-        // Small delay to avoid rate limits
         await new Promise(r => setTimeout(r, 300));
       }
 
-      await statusMsg.edit(`✅ Done! **${success}** members verified. ${failed > 0 ? `❌ Failed: **${failed}**` : ''}`);
+      await statusMsg.edit(`✅ Done! **${success}** members verified.${failed > 0 ? ` ❌ Failed: **${failed}**` : ''}`);
     } catch (err) {
       console.error('verifyall error:', err);
       await statusMsg.edit('❌ Something went wrong. Make sure the bot has Manage Roles permission.');
     }
-  }
-    const { offenseTracker } = require('./data/moderation');
-    const mentioned = message.mentions.users.first();
-    if (!mentioned) {
-      return message.reply('Usage: `!resetoffenses @user`');
-    }
-    offenseTracker.delete(mentioned.id);
-    await message.reply(`✅ Offenses for **${mentioned.tag}** have been reset.`);
   }
 });
 
@@ -113,7 +109,6 @@ client.on('messageCreate', async (message) => {
 // ─────────────────────────────────────────────────────────────
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isButton()) return;
-
   if (interaction.customId === 'verify_user') {
     await handleVerifyButton(interaction);
   }
