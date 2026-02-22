@@ -58,9 +58,46 @@ client.on('messageCreate', async (message) => {
     await message.reply(`⚠️ **${mentioned.tag}** has **${count}** offense(s) on record.`);
   }
 
-  // Reset offense count for a user
-  // Usage: !resetoffenses @user
-  if (message.content.startsWith('!resetoffenses')) {
+  // Verify all unverified members
+  if (message.content === '!verifyall') {
+    const verifiedRoleId = process.env.VERIFIED_ROLE_ID;
+    if (!verifiedRoleId) return message.reply('❌ VERIFIED_ROLE_ID not set in .env');
+
+    const statusMsg = await message.reply('⏳ Fetching all members...');
+
+    try {
+      // Fetch all members
+      await message.guild.members.fetch();
+      const unverified = message.guild.members.cache.filter(
+        m => !m.user.bot && !m.roles.cache.has(verifiedRoleId)
+      );
+
+      if (unverified.size === 0) {
+        return statusMsg.edit('✅ Everyone already has the verified role!');
+      }
+
+      await statusMsg.edit(`⏳ Verifying **${unverified.size}** members...`);
+
+      let success = 0;
+      let failed = 0;
+
+      for (const [, member] of unverified) {
+        try {
+          await member.roles.add(verifiedRoleId);
+          success++;
+        } catch (e) {
+          failed++;
+        }
+        // Small delay to avoid rate limits
+        await new Promise(r => setTimeout(r, 300));
+      }
+
+      await statusMsg.edit(`✅ Done! **${success}** members verified. ${failed > 0 ? `❌ Failed: **${failed}**` : ''}`);
+    } catch (err) {
+      console.error('verifyall error:', err);
+      await statusMsg.edit('❌ Something went wrong. Make sure the bot has Manage Roles permission.');
+    }
+  }
     const { offenseTracker } = require('./data/moderation');
     const mentioned = message.mentions.users.first();
     if (!mentioned) {
