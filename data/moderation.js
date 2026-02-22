@@ -80,6 +80,31 @@ function getTimeoutLabel(offenseCount) {
   return TIMEOUT_LABELS[Math.min(offenseCount, 4)];
 }
 
+// ─────────────────────────────────────────────────────────────
+// REFUND KEYWORDS — hardcoded, always caught, no AI needed
+// ─────────────────────────────────────────────────────────────
+const REFUND_KEYWORDS = [
+  'refund', 'refunded', 'refunding', 'refunds',
+  'money back', 'my money back', 'get my money',
+  'chargeback', 'charge back',
+  'dispute', 'disputing', 'open a dispute',
+  'paypal claim', 'paypal dispute',
+  'return my payment', 'return payment',
+  'want my money', 'give me my money',
+  'i want my money', 'send my money',
+  'pay me back', 'pay me',
+];
+
+function checkRefund(content) {
+  const lower = content.toLowerCase();
+  for (const keyword of REFUND_KEYWORDS) {
+    if (lower.includes(keyword)) {
+      return { matched: true };
+    }
+  }
+  return { matched: false };
+}
+
 function checkMessage(content) {
   const lower = content.toLowerCase();
 
@@ -105,6 +130,7 @@ function checkMessage(content) {
 module.exports = {
   BAD_WORDS,
   BAD_PHRASES,
+  REFUND_KEYWORDS,
   TIMEOUT_SCALE,
   TIMEOUT_LABELS,
   offenseTracker,
@@ -113,4 +139,5 @@ module.exports = {
   getTimeoutDuration,
   getTimeoutLabel,
   checkMessage,
+  checkRefund,
 };
