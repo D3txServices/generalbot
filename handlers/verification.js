@@ -11,34 +11,58 @@ const {
 // ─────────────────────────────────────────────────────────────
 async function postVerifyPanel(channel) {
   const embed = new EmbedBuilder()
-    .setTitle('✅ D3TX Verification')
-    .setColor(0x57f287)
+    .setTitle('🔐 D3TX Services — Verification & Terms of Service')
+    .setColor(0xf5a623)
     .setDescription(
       [
-        '**Welcome to D3TX!** 👋',
+        '> **Welcome to D3TX Services!** Before gaining access to the server, you must read and agree to our full Terms of Service below.',
         '',
-        'Before you can access the server, please read and agree to our rules:',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        '⛔ **NO REFUND POLICY — All Sales Are Final**',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        'Once a purchase is made, the script is delivered digitally. **No refunds — no matter the reason.**',
+        '→ Deleting the script does **not** qualify for a refund',
+        '→ Resetting your PC does **not** qualify for a refund',
+        '→ No longer wanting the script does **not** qualify',
+        '→ Script files are always re-downloadable from your Patreon account',
         '',
-        '**📜 Server Rules:**',
-        '**1.** Be respectful to all members and staff',
-        '**2.** No spamming, flooding or excessive caps',
-        '**3.** No hate speech, slurs or abusive language',
-        '**4.** No false claims, spreading misinformation or calling out staff',
-        '**5.** No advertising or self-promotion without permission',
-        '**6.** No sharing of personal information',
-        '**7.** Keep conversations in the correct channels',
-        '**8.** Follow Discord\'s Terms of Service at all times',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        '🚫 **ZERO TOLERANCE — No Chargebacks or Disputes**',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        'Attempting a chargeback results in **permanent ban** from all D3TX platforms.',
+        '→ Always contact support first via Discord or **support@d3tx.services**',
+        '→ Chargebacks = immediate permanent blacklist — no exceptions',
         '',
-        'By clicking **Verify** below, you confirm that you have read and agree to all of the above rules.',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        '🔒 **PERSONAL USE ONLY — No Sharing or Reselling**',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        'All scripts and memberships are strictly for the **buyer only.**',
+        '→ Sharing with anyone — friends, family, online — is **prohibited**',
+        '→ Leaking or posting scripts publicly = **permanent ban**',
+        '→ Reselling D3TX scripts under any name **will be pursued legally**',
         '',
-        '> 🔒 Violations may result in timeouts or removal from the server.',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        '📋 **SCOPE — Applies to All Platforms**',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        'These terms apply to: **Patreon, Discord, d3tx.services** and all affiliated platforms.',
+        '',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        '⚠️ **YOUR RESPONSIBILITY**',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        '"I didn\'t read the rules" is **not accepted.** Rules are pinned in Discord and available at **d3tx.services** at all times.',
+        '',
+        '🔄 D3TX Services reserves the right to update these terms at any time. Continued use = acceptance.',
+        '',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        '*By clicking **Verify** below, you confirm you have fully read, understood, and agree to all D3TX Terms of Service above.*',
       ].join('\n')
     )
-    .setFooter({ text: 'D3TX • Click verify to gain access' });
+    .setFooter({ text: 'D3TX Services • d3tx.services • Powered by D3TX Security' })
+    .setTimestamp();
 
   const button = new ButtonBuilder()
     .setCustomId('verify_user')
-    .setLabel('✅ I agree — Verify Me')
+    .setLabel('✅ I Agree — Verify Me')
     .setStyle(ButtonStyle.Success);
 
   const row = new ActionRowBuilder().addComponents(button);
